@@ -1,0 +1,1 @@
+INSERT INTO tbb_user(name,age) VALUES ('Miss John',20),('Miss Ketty',21),('Miss Busy',22),('Miss dessy',23),('Miss gucci',24)
