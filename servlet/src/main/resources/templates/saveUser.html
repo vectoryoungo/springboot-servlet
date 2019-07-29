@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>新增用户</title>
+	</meta>
+</head>
+<body>
+	<center>
+		<form th:action="@{/saveUser}" method="post">
+			<!-- <span th:text="姓名"></span><input type="text" name="name"/> -->
+			<font color="red" th:errors="${user.name}"></font>
+			<br></br>
+			<span th:text="姓名"></span><input type="text" name="name" />
+			<span th:text="年龄"></span><input type="text" name="age" />
+			<font color="red" th:errors="${user.age}"></font>
+			<br></br>
+			<input type="submit" th:value="新增"/>
+		</form>
+	</center>
+</body>
+</html>

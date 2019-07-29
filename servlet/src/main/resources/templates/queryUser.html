@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8"/>
+	<title>查询用户</title>
+<script type="text/javascript">
+function queryUser(){
+	var name = document.getElementById("name").value;
+	var age = document.getElementById("age").value;
+	var page = document.getElementById("page").value;
+	var size = document.getElementById("size").value;
+	window.location.href = "/queryUser?name="+name+"&age="+age+"&page="+page+"&size="+size;
+}
+</script>
+</head>
+<body>
+	<center>
+		<span th:text="姓名"></span><input type="text" id="name" name="name"/>
+		<span th:text="年龄"></span><input type="text" id="age"  name="age"/>
+		<span th:text="页码"></span><input type="text" id="page" name="page"/>
+		<span th:text="行数"></span><input type="text" id="size" name="size"/>
+		<input type="button" th:value="测试查询" onclick="queryUser()"/>
+		
+		<table border="1">
+			<tr>
+				<th>ID</th>
+				<th>姓名</th>
+				<th>年龄</th>
+				<th>操作</th>
+			</tr>
+			<tr th:each="u:${list}">
+				<td th:text="${u.id}"></td>
+				<td th:text="${u.name}"></td>
+				<td th:text="${u.age}"></td>
+				<td>
+					<a th:text="修改" th:href="@{/toModifyPage(id=${u.id})}"></a>
+					<a th:text="删除" th:href="@{/delete(id=${u.id})}"></a>
+				</td>
+			</tr>
+		</table>
+	</center>
+</body>
+</html>

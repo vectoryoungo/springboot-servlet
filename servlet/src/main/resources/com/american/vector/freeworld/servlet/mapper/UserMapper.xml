@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.american.vector.freeworld.servlet.mapper.UserMapper">
+	<insert id="insert">
+		insert into tbb_user(name,age) values(#{name},#{age})
+	</insert>
+	
+	<select id="selectUserByPage" resultType="com.american.vector.freeworld.servlet.pojo.User">
+		select id,name,age from tbb_user
+		<where>
+			<if test="user.name != null">
+				and name = #{user.name}
+			</if>
+			<if test="user.age != 0">
+				and age = #{user.age}
+			</if>
+		</where>
+		limit #{startIndex}, #{size}
+	</select>
+	
+	<select id="selectUserById" resultType="com.american.vector.freeworld.servlet.pojo.User">
+		select id,name,age from tbb_user where id = #{id}
+	</select>
+	
+	<update id="update">
+		update tbb_user
+		<set>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="age != 0">
+				age = #{age},
+			</if>
+		</set>
+		<where>
+			id = #{id}
+		</where>
+	</update>
+	
+	<delete id="deleteByUserId">
+		delete from tbb_user where id = #{id}
+	</delete>
+</mapper>
