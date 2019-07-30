@@ -1,7 +1,10 @@
 package com.american.vector.freeworld.servlet.controller;
 
+import com.american.vector.freeworld.servlet.mapper.UserDao;
 import com.american.vector.freeworld.servlet.mapper.UserMapper;
 import com.american.vector.freeworld.servlet.pojo.User;
+import com.american.vector.freeworld.servlet.pojo.UserJPA;
+import com.american.vector.freeworld.servlet.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +19,9 @@ import java.util.List;
 public class UserController {
 
 	@Autowired
-	private UserMapper userDao;
+	private UserMapper userService;
+	@Autowired
+	private UserService userDao;
 	
 	/**
 	 * 页面跳转方法，进入新增用户页面。
@@ -38,7 +43,7 @@ public class UserController {
 			return "saveUser";
 		}
 		
-		this.userDao.insert(user);
+		this.userService.insert(user);
 		
 		return "index";
 	}
@@ -57,7 +62,8 @@ public class UserController {
 		}
 		example.setAge(age);
 		
-		List<User> users = this.userDao.selectUserByPage(example, (page-1)*size, size);
+		//List<User> users = this.userService.selectUserByPage(example, (page-1)*size, size);
+		List<UserJPA> users = this.userDao.findAll();
 		
 		model.addAttribute("list", users);
 		
@@ -67,7 +73,7 @@ public class UserController {
 	@RequestMapping("/toModifyPage")
 	public String toModifyPage(Long id, Model model){
 		
-		User user = this.userDao.selectUserById(id);
+		User user = this.userService.selectUserById(id);
 		model.addAttribute("user", user);
 		
 		return "modifyUser";
@@ -76,7 +82,7 @@ public class UserController {
 	@RequestMapping("/modifyUser")
 	public String modifyUser(User user){
 		
-		this.userDao.update(user);
+		this.userService.update(user);
 		
 		return "redirect:/queryUser";
 	}
@@ -84,7 +90,7 @@ public class UserController {
 	@RequestMapping("/delete")
 	public String delete(Long id){
 		
-		this.userDao.deleteByUserId(id);
+		this.userService.deleteByUserId(id);
 		
 		return "redirect:/queryUser";
 	}

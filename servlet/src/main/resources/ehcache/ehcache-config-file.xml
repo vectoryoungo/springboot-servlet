@@ -1,0 +1,36 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:noNamespaceSchemaLocation="../config/ehcache.xsd">
+
+	<!-- 配置序列化文件存储的目录 -->
+    <diskStore path="java.io.tmpdir"/>
+    
+    <!-- 默认缓存区，在不指定使用哪一个缓存区的时候，使用默认区
+    	maxElementsInMemory - 内存最多缓存多少个对象。
+    	timeToIdleSeconds - 空闲的对象缓存时长多少秒。
+    	timeToLiveSeconds - 缓存对象的生命周期时长，多少秒。
+    	memoryStoreEvictionPolicy - 内存的缓存管理策略，当内存不足时，如何决定序列化哪些对象。
+    		LRU策略 - 最大访问频率保留策略。单位时间内，访问频率越小的数据，优先序列化到文件中。
+     -->
+    <defaultCache
+            maxElementsInMemory="10000"
+            eternal="false"
+            timeToIdleSeconds="120"
+            timeToLiveSeconds="120"
+            maxElementsOnDisk="10000000"
+            diskExpiryThreadIntervalSeconds="120"
+            memoryStoreEvictionPolicy="LRU">
+        <persistence strategy="localTempSwap"/>
+    </defaultCache>
+ 
+ 	<!-- 自定义缓存区，可以通过name命名指定使用的缓存区。 -->   
+    <cache  name="vectorCache"
+            maxElementsInMemory="10000"
+            eternal="false"
+            timeToIdleSeconds="120"
+            timeToLiveSeconds="120"
+            maxElementsOnDisk="10000000"
+            diskExpiryThreadIntervalSeconds="120"
+            memoryStoreEvictionPolicy="LRU">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+</ehcache>
