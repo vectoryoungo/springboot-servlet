@@ -4,6 +4,7 @@
  **/
 package com.american.vector.freeworld.servlet.config;
 
+import com.american.vector.freeworld.servlet.factory.CustomJobFactory;
 import com.american.vector.freeworld.servlet.job.SimpleJob;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,9 +35,10 @@ public class QuartzConfiguration {
     }
 
     @Bean
-    public SchedulerFactoryBean initSchedulerFactoryBean(CronTriggerFactoryBean cronTriggerFactoryBean) {
+    public SchedulerFactoryBean initSchedulerFactoryBean(CronTriggerFactoryBean cronTriggerFactoryBean, CustomJobFactory customJobFactory) {
         SchedulerFactoryBean schedulerFactoryBean = new SchedulerFactoryBean();
         schedulerFactoryBean.setTriggers(cronTriggerFactoryBean.getObject());
+        schedulerFactoryBean.setJobFactory(customJobFactory);
         return schedulerFactoryBean;
     }
 }
