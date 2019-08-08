@@ -24,6 +24,9 @@ public class SimpleJob implements Job{
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         //search data from db or outsource data provider
         System.out.println(Thread.currentThread().getName() + " executing job ......");
+        System.out.println("jobRunTime " + jobExecutionContext.getJobRunTime());
+        System.out.println("instanceId " + jobExecutionContext.getFireInstanceId());
+        System.out.println("calendar " + jobExecutionContext.getCalendar());
         jobService.showMsg();
     }
 }
